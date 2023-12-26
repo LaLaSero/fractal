@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:57:59 by yutakagi          #+#    #+#             */
-/*   Updated: 2023/12/25 13:32:55 by yutakagi         ###   ########.fr       */
+/*   Updated: 2023/12/26 17:14:27 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	check_args(int argc, char **argv)
 		return (MANDELBROT);
 	else if (ft_strncmp(str, "julia", 6) == 0)
 		return (JULIA);
+	else if (ft_strncmp(str, "original", 9) == 0)
+		return (ORIGINAL);
 	else
 		return (INVALID);
 }

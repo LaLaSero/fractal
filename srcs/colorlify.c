@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_fractol.c                                   :+:      :+:    :+:   */
+/*   colorlify.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/25 13:31:59 by yutakagi          #+#    #+#             */
-/*   Updated: 2023/12/26 02:24:59 by yutakagi         ###   ########.fr       */
+/*   Created: 2023/12/26 15:49:09 by yutakagi          #+#    #+#             */
+/*   Updated: 2023/12/26 17:44:15 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,33 @@ int	gradate_color(int depth, int start_color, int end_color, t_colors *colors)
 	return ((colors->red_value << 16) + (colors->green_value << 8) + colors->blue_value);
 }
 
+int	generate_random_color(int depth)
+{
+	int	red_value;
+	int	green_value;
+	int	blue_value;
+
+	red_value = (depth * 7) % 255;
+	green_value = (depth * 9) % 255;
+	blue_value = (depth * 11) % 255;
+	return ((red_value << 16) + (green_value << 8) + blue_value);
+}
+
+int generate_pseudo_random_color(int depth, t_colors *colors)
+{
+	int	red_value;
+	int	green_value;
+	int	blue_value;
+
+	colors->red = (sin(depth) + 1) / 2;
+	colors->green = (cos(depth) + 1) / 2;
+	colors->blue = (tan(depth) + 1) / 2;
+	red_value = (int)(colors->red * 255) % 255;
+	green_value = (int)(colors->green * 255) % 255;
+	blue_value = (int)(colors->blue * 255) % 255;
+	return ((red_value << 16) + (green_value << 8) + blue_value);
+}
+
 int convert_depth_to_color(int depth, t_mlx *data)
 {
 	t_colors	colors;
@@ -60,81 +87,13 @@ int convert_depth_to_color(int depth, t_mlx *data)
 
 	if (depth == MAX_DEPTH)
 		color = INSIDE_COLOR;
-	else
+	else if (GRADATION == TRUE)
 		color = gradate_color(depth, OUTSIDE_COLOR, TARGET_COLOR, &colors);
+	else if (PSYCHEDELIC == FALSE)
+		color = generate_random_color(depth);
+	else
+		color = generate_pseudo_random_color(depth, &colors);
 	if (data->pixel_bits != 32)
 		color = mlx_get_color_value(data->mlx, color);
 	return (color);
-}
-
-int	calc_julia(t_mlx *data, double c_re, double c_im)
-{
-	int depth;
-	double z_re;
-	double z_im;
-
-	z_re = 0;
-	z_im = 0;
-	depth = 0;
-	return (depth);
-}
-
-int	calc_mandelbrot(t_mlx *data, double c_re, double c_im)
-{
-	int depth;
-	double z_re;
-	double z_im;
-	double tmp;
-
-	z_re = 0;
-	z_im = 0;
-	depth = 0;
-	while (depth < MAX_DEPTH)
-	{
-		if (z_re * z_re + z_im * z_im > 4.f)
-			break;
-		tmp = z_im;
-		z_im = 2.f * z_re * z_im + c_im;
-		z_re = z_re * z_re - tmp * tmp + c_re;
-		depth++;
-	}
-	return (depth);
-}
-
-int calc_depth(t_mlx *data, int fractol_type, double z_re, double z_im)
-{
-	int	depth;
-
-	depth = 0;
-	if (fractol_type == MANDELBROT)
-	{
-		depth = calc_mandelbrot(data, z_re, z_im);
-	}
-	else if (fractol_type == JULIA)
-		depth = calc_julia(data, z_re, z_im);
-	return (depth);
-}
-
-void	render_fractol(t_mlx *data, int fractol_type)
-{
-	int		x;
-	int		y;
-	double	z_re;
-	double	z_im;
-	int		depth;
-
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			z_re = data->min_re + (double) x * (data->max_re - data->min_re) / WIDTH;
-			z_im = data->max_im + (double) y * (data->min_im - data->max_im) / HEIGHT;
-			depth = calc_depth(data, fractol_type, z_re, z_im);
-			paint_plot(data, x, y, convert_depth_to_color(depth, data));
-			x++;
-		}
-		y++;
-	}
 }
