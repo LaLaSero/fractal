@@ -1,20 +1,20 @@
-NAME = minilibx_test
+NAME = fractol
 SRCS = srcs/main.c srcs/check_args.c srcs/render_fractol.c srcs/colorlify.c srcs/fractol_funcs.c
 SRCS += srcs/handle_key_event.c
 OBJS = $(SRCS:.c=.o)
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 CC = cc
+CFLAGS = -Wall -Wextra -Werror -I./includes
 LIBX_FLAGS = -lmlx_Linux -lXext -lX11 -g -fsanitize=leak -lm
 
-# Rules
 all:		libft $(NAME)
 
 libft:
 			$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME):	$(OBJS)
-			$(CC) $(OBJS) $(LIBFT) $(LIBX_FLAGS) -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LIBX_FLAGS) -o $(NAME)
 
 clean:
 			$(RM) $(OBJS)

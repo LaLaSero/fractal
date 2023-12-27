@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 14:35:25 by yutakagi          #+#    #+#             */
-/*   Updated: 2023/12/26 18:24:49 by yutakagi         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:53:23 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,19 @@ void init_mlx(t_mlx *data, char *fractol, int fractol_type)
 		data->max_im = MAX_IM_MANDELBROT;
 		data->min_im = MIN_IM_MANDELBROT;
 	}
-	else if (fractol_type == JULIA || fractol_type == ORIGINAL)
+	else if (fractol_type == JULIA)
 	{
 		data->max_re = MAX_RE_JULIA;
 		data->min_re = MIN_RE_JULIA;
 		data->max_im = MAX_IM_JULIA;
 		data->min_im = MIN_IM_JULIA;
+	}
+	else if (fractol_type == ORIGINAL)
+	{
+		data->max_re = MAX_RE_ORIGINAL;
+		data->min_re = MIN_RE_ORIGINAL;
+		data->max_im = MAX_IM_ORIGINAL;
+		data->min_im = MIN_IM_ORIGINAL;
 	}
 }
 

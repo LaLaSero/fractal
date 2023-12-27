@@ -6,7 +6,7 @@
 /*   By: yutakagi <yutakagi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 22:48:23 by yutakagi          #+#    #+#             */
-/*   Updated: 2023/12/26 17:15:35 by yutakagi         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:17:46 by yutakagi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ typedef struct	s_mlx
 	int		line_bytes;
 	int		endian;
 	char	*buffer;
-	int		max_re;
-	int		min_re;
-	int		max_im;
-	int		min_im;
+	double	max_re;
+	double	min_re;
+	double	max_im;
+	double	min_im;
 	int		fractol_type;
 }				t_mlx;
 
@@ -57,15 +57,15 @@ int		check_args(int argc, char **argv);
 int		show_usage(void);
 void	render_fractol(t_mlx *data, int fractol_type);
 void	paint_plot(t_mlx *data, int x, int y, int color);
-int		calc_mandelbrot(t_mlx *data, double c_re, double c_im);
-int		calc_julia(t_mlx *data, double z_re_initial, double z_im_initial);
+int		calc_mandelbrot(double c_re, double c_im);
+int		calc_julia(double z_re_initial, double z_im_initial);
 int		gradate_color(int depth, int start_color, int end_color, t_colors *colors);
 int		generate_random_color(int depth);
 int		generate_pseudo_random_color(int depth, t_colors *colors);
 int		convert_depth_to_color(int depth, t_mlx *data);
 int		handle_key(int keycode, t_mlx *data);
 int		exit_program(t_mlx *data);
-int		calc_original(t_mlx *data, double c_re, double c_im);
+int		calc_original(double c_re, double c_im);
 # ifndef TRUE
 # define TRUE 1
 # endif
@@ -106,5 +106,20 @@ int		calc_original(t_mlx *data, double c_re, double c_im);
 # define WHITE 0xFFFFFF
 # endif
 
+# ifndef UP
+# define UP 1
+# endif
+
+# ifndef DOWN
+# define DOWN 2
+# endif
+
+# ifndef LEFT
+# define LEFT 3
+# endif
+
+# ifndef RIGHT
+# define RIGHT 4
+# endif
 
 #endif

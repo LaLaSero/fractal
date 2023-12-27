@@ -7,11 +7,11 @@
 # endif
 
 # ifndef PSYCHEDELIC
-# define PSYCHEDELIC FALSE
+# define PSYCHEDELIC TRUE
 # endif
 
 # ifndef WIDTH
-# define WIDTH 1920
+# define WIDTH 1080
 # endif
 
 # ifndef HEIGHT
@@ -19,7 +19,7 @@
 # endif
 
 # ifndef MAX_DEPTH
-# define MAX_DEPTH 100
+# define MAX_DEPTH 2000
 # endif
 
 #ifndef INSIDE_COLOR
@@ -59,11 +59,11 @@
 # endif
 
 # ifndef MAX_IM_JULIA
-# define MAX_IM_JULIA 1.5
+# define MAX_IM_JULIA 2.0
 # endif
 
 # ifndef MIN_IM_JULIA
-# define MIN_IM_JULIA -1.5
+# define MIN_IM_JULIA -2.0
 # endif
 
 # ifndef JULIA_DEFAULT_VALUE_RE
@@ -72,6 +72,22 @@
 
 # ifndef JULIA_DEFAULT_VALUE_IM
 # define JULIA_DEFAULT_VALUE_IM 0.48
+# endif
+
+# ifndef MAX_RE_ORIGINAL
+# define MAX_RE_ORIGINAL 2.0
+# endif
+
+# ifndef MIN_RE_ORIGINAL
+# define MIN_RE_ORIGINAL 1.0
+# endif
+
+# ifndef MAX_IM_ORIGINAL
+# define MAX_IM_ORIGINAL 1.5
+# endif
+
+# ifndef MIN_IM_ORIGINAL
+# define MIN_IM_ORIGINAL -1.5
 # endif
 
 # ifndef X_BUTTON
